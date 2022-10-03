@@ -3,7 +3,8 @@
 
 module.exports = function(config) {
   config.set({
-    basePath: '',
+    basePath: '/app',
+    testContext: './src/',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
@@ -25,9 +26,20 @@ module.exports = function(config) {
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
     autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+    browsers: ['mychrome'],
+    customLaunchers: {
+      mychrome: {
+          base: 'ChromeHeadless',
+          flags: [
+              '--no-sandbox'
+          ]
+      }
+    },
+    singleRun: false,
+    mime: {
+      'text/x-typescript': ['ts','tsx']
+    }
   });
 };
